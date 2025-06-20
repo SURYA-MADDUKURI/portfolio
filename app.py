@@ -1,76 +1,142 @@
 import streamlit as st
+from PIL import Image
+from streamlit_extras.mention import mention
+from streamlit_extras.colored_header import colored_header
 
-# Set page config for a modern dark theme
-st.set_page_config(page_title="Surya Maddukuri - AI/ML Portfolio", layout="wide", initial_sidebar_state="collapsed")
+# ---- PAGE CONFIG ----
+st.set_page_config(page_title="Surya Maddukuri | AI/ML Portfolio",
+                   page_icon="🤖",
+                   layout="wide")
 
-# Custom CSS for dark theme and styling
+# ---- HEADER ----
 st.markdown("""
 <style>
-    .stApp { background-color: #1A1A1A; color: #E6E6E6; }
-    .hero-banner { background: linear-gradient(90deg, #1E90FF, #4682B4); padding: 40px; text-align: center; border-radius: 15px; }
-    .hero-title { font-size: 52px; color: #FFFFFF; margin-bottom: 10px; }
-    .hero-subtitle { font-size: 20px; color: #E6E6E6; }
-    .section-header { font-size: 32px; color: #1E90FF; margin-top: 30px; margin-bottom: 15px; }
-    .content-text { font-size: 18px; color: #B0B0B0; }
-    .skill-chip { background-color: #4682B4; color: #FFFFFF; padding: 8px 15px; border-radius: 20px; margin: 5px; display: inline-block; }
-    .exp-box { background-color: #2A2A2A; padding: 20px; border-radius: 10px; margin-bottom: 15px; border-left: 5px solid #1E90FF; }
-    .project-box { background-color: #2A2A2A; padding: 20px; border-radius: 10px; margin-bottom: 15px; border-left: 5px solid #4682B4; }
-    .progress-bar { background-color: #333; border-radius: 5px; }
-    .progress-fill { background-color: #1E90FF; border-radius: 5px; }
+.center { text-align: center; }
+.highlight { font-size:1.1rem; color: #555; }
+.card {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 2px 2px 15px rgba(0,0,0,.1);
+    margin-bottom: 20px;
+}
+.section-header {
+    font-size:1.3rem;
+    font-weight: bold;
+    color: #007BFF;
+}
 </style>
 """, unsafe_allow_html=True)
 
-# Hero Banner
-st.markdown('<div class="hero-banner"><div class="hero-title">Surya Maddukuri</div><div class="hero-subtitle">AI/ML Specialist ', unsafe_allow_html=True)
+# ---- INTRO ----
+col1, col2 = st.columns([1,3])
 
-# About Me Section with Image
-st.markdown('<div class="section-header">About Me</div>', unsafe_allow_html=True)
-col1, col2 = st.columns([3, 1])
 with col1:
-    st.markdown('<p class="content-text">I am a Computer Science and Engineering graduate with a deep passion for AI and machine learning. My expertise lies in developing and optimizing AI models, with a focus on data processing, NLP, and visualization. I have hands-on experience in Python, deep learning, and collaborative workflows, making me a strong fit for roles that require innovation and technical precision. I aim to contribute to impactful AI projects by leveraging my skills to solve real-world challenges.</p>', unsafe_allow_html=True)
+    try:
+        profile_image = Image.open("surya.png")  # Add your image
+        st.image(profile_image, use_container_width="auto")
+    except FileNotFoundError:
+        st.markdown("👤 *Add `surya.png` for a personal photo.*")
+
 with col2:
-    st.image("https://images.unsplash.com/photo-1600585154343-5b9c54f2d2b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60", caption="Working on AI Solutions", use_container_width=True)
+    st.markdown("""
+    <h1 class="center">👋 Maddukuri Surya Teja</h1>
+    <h3 class="center">AI/ML & NLP Specialist | Model Optimization | MLOps</h3>
+    <p class="center highlight">
+    Results-driven AI/ML professional with experience in NLP pipelines, fine-tuning Transformer-based LLMs, and deploying solutions across AWS. Skilled in deep learning, statistical modeling, and workflow automation using MLOps best practices.
+    </p>
+    """, unsafe_allow_html=True)
 
-# Skills Section with Progress Bars
-st.markdown('<div class="section-header">Skills</div>', unsafe_allow_html=True)
-skills = {
-    "Python": 90,
-    "Machine Learning": 85,
-    "Deep Learning": 80,
-    "Pandas": 85,
-    "NumPy": 85,
-    "Visualization": 75,
-    "NLP": 70
-}
-col1, col2 = st.columns([2, 1])
-with col1:
-    for skill, proficiency in skills.items():
-        st.markdown(f'<span class="skill-chip">{skill}</span>', unsafe_allow_html=True)
-        st.progress(proficiency)
-with col2:
-    st.image("https://images.unsplash.com/photo-1516321318423-7d6a9183b4d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60", use_container_width=True)
+# ---- LINKS ----
+st.markdown("<div class='center'>", unsafe_allow_html=True)
+mention("LinkedIn", "https://www.linkedin.com/in/surya-maddukuri/", icon="linkedin")
+mention("GitHub", "https://github.com/surya-maddukuri", icon="github")
+st.markdown("</div>", unsafe_allow_html=True)
 
-# Work Experience Section
-st.markdown('<div class="section-header">Work Experience</div>', unsafe_allow_html=True)
-st.markdown('<div class="exp-box"><b>AI/ML Intern</b><br>Lyros Technologies, Hyderabad | January 2025 - Ju 2023<br>Collaborated with a team to develop and optimize machine learning models for predictive analytics using Python, Pandas, and NumPy. Implemented NLP techniques to analyze customer feedback data, improving sentiment analysis accuracy by 15%. Created visualizations using Matplotlib and Seaborn to present insights to stakeholders.</div>', unsafe_allow_html=True)
+# ---- TECHNICAL EXPERTISE ----
+st.markdown("<div class='card'>", unsafe_allow_html=True)
+colored_header("⚡ Technical Expertise", "#2196F3")
+cols = st.columns(3)
 
-# Projects Section with Visual
-st.markdown('<div class="section-header">Projects</div>', unsafe_allow_html=True)
-col1, col2 = st.columns([2, 1])
-with col1:
-    st.markdown('<div class="project-box"><b>Bloom Filter (2021 - 2022)</b><br>Developed a Bloom filter over encrypted cloud data for multi-keyword search, enabling efficient and scalable data retrieval systems.</div>', unsafe_allow_html=True)
-    st.markdown('<div class="project-box"><b>Sentiment Analysis with NLP (2023)</b><br>Built a deep learning model using Python and TensorFlow to classify sentiments in social media data. Utilized Pandas and NumPy for data preprocessing and achieved 85% accuracy through hyperparameter tuning and model optimization.</div>', unsafe_allow_html=True)
-with col2:
-    st.image("https://images.unsplash.com/photo-1551288049-b5f3a44fbaba?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60", caption="AI Model Development", use_container_width=True)
+with cols[0]:
+    st.markdown("""
+    - 🐍 **Python, Pandas, NumPy**
+    - ⚡ **Stat Models:** Regression, Random Forest, XGBoost
+    - 🕹️ **Deep Learning:** CNN, RNN, Transformers
+    """)
+with cols[1]:
+    st.markdown("""
+    - 💡 **NLP Techniques:** Tokenization, NER, LLM fine-tuning
+    - 🛠️ **Frameworks:** TensorFlow, PyTorch, Keras
+    - 📊 **Visualization:** Matplotlib, Seaborn
+    """)
+with cols[2]:
+    st.markdown("""
+    - ☁️ **MLOps & Cloud:** AWS, Azure, GCP
+    - 🚢 **Deployment:** Docker, Kubernetes, Streamlit
+    - 🔥 **Workflow Optimization:** MLflow, Apache Airflow
+    """)
+st.markdown("</div>", unsafe_allow_html=True)
 
-# Certificates Section
-st.markdown('<div class="section-header">Certificates</div>', unsafe_allow_html=True)
-st.markdown('<p class="content-text"><b>Machine Learning & Deep Learning Workshop</b><br>Pivotalsoft, PRIST Deemed to be University</p>', unsafe_allow_html=True)
-st.markdown('<p class="content-text"><b>Software Development Workshop</b><br>Certification for a three-day workshop on Software Development</p>', unsafe_allow_html=True)
+# ---- EDUCATION ----
+st.markdown("<div class='card'>", unsafe_allow_html=True)
+colored_header("🎓 Education", "#9C27B0")
+st.markdown("""
+- **B.Tech in Computer Science Engineering (2017–2022)** — PRIST University, Chennai  
+- **Certification:** Machine Learning & Deep Learning Workshop conducted by Pivotal Soft
+""")
+st.markdown("</div>", unsafe_allow_html=True)
 
-# Contact Section
-st.markdown('<div class="section-header">Contact</div>', unsafe_allow_html=True)
-st.markdown('<p class="content-text">📍 Rajahmundry, India<br>📧 suryamaddukuri4380@gmail.com<br>📞 +91 8332967735</p>', unsafe_allow_html=True)
+# ---- PROFESSIONAL EXPERIENCE ----
+st.markdown("<div class='card'>", unsafe_allow_html=True)
+colored_header("👔 Professional Experience", "#FF5722")
+st.markdown("""
+**Software Engineer — Lyros Technologies (Feb 2025–Present):**  
+- Created an interactive tax calculator using Streamlit for state and federal calculations.  
+- Developed clean, user-friendly interfaces and implemented complex bracket tax logic.  
+- Created end‑to‑end NLP pipelines for text classification, sentiment detection, and named entity recognition using Hugging Face Transformers.  
+- Fine‑tuned and optimized BERT and GPT‑style Transformer models for classification and summarization.  
+- Created end‑to‑end ML pipelines for deployment using Kubernetes, MLflow, and Apache Airflow.
 
-# Footer
-st.markdown('<p class="content-text" style="text-align: center; margin-top: 30px;">Built with ❤️ using Streamlit | Surya Maddukuri © 2025</p>', unsafe_allow_html=True)
+**Python Developer (Self‑Driven Projects) (2022–2025):**  
+- Created automated data-processing pipelines and ML pipelines for NLP and predictive analytics.  
+- Developed interactive dashboards and AI applications using Streamlit and Hugging Face.  
+- Created REST APIs for seamless model access and deployment across platforms.
+""")
+st.markdown("</div>", unsafe_allow_html=True)
+
+# ---- PROJECTS ----
+st.markdown("<div class='card'>", unsafe_allow_html=True)
+colored_header("💻 Projects & Case Studies", "#607D8B")
+st.markdown("""
+**Tax Calculator using Streamlit**  
+- Created an interactive app for state and federal tax calculations.  
+- Developed a clean and user-friendly interface.  
+- Ensured precision and reliability across income scenarios.
+""")
+st.markdown("</div>", unsafe_allow_html=True)
+
+# ---- CERTIFICATIONS ----
+st.markdown("<div class='card'>", unsafe_allow_html=True)
+colored_header("🏆 Certifications & Achievements", "#3F51B5")
+st.markdown("""
+- Participation in **Machine Learning & Deep Learning Workshop** conducted by Pivotal Soft.  
+- Skilled in end‑to‑end AI pipelines, NLP prompt engineering, and model deployment.
+""")
+st.markdown("</div>", unsafe_allow_html=True)
+
+# ---- DOWNLOAD RESUME ----
+st.markdown("---")
+st.markdown("<div class='center'>", unsafe_allow_html=True)
+st.markdown("### 📄 Download My Resume")
+try:
+    with open("surya_resume44.pdf", "rb") as file:
+        st.download_button(
+            label="⬇️ Download Surya Maddukuri Resume (PDF)",
+            data=file.read(),
+            file_name="Surya_Maddukuri_Resume.pdf",
+            mime="application/pdf"
+        )
+except FileNotFoundError:
+    st.warning("📁 'surya_resume44.pdf' not found. Please add it to the app directory.")
+st.markdown("</div>", unsafe_allow_html=True)
